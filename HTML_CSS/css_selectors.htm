@@ -1,0 +1,189 @@
+<!--CSS is of three types : Inlien   , Extrenal , Internal-->
+<!--CSS selectors are use to select html elements-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSS Selector</title>
+    <style>
+        /* css Selector */
+        /*element selector*/
+        h1{
+             color: red;
+          }
+        p{
+            color: black;
+        }
+        /*Descendent selector - we can call descendants of the tags*/  
+        div li{
+            color: blue;
+        }
+
+        /* children selector*/
+        div>h1>span{
+            color: purple;
+        }
+
+        div>span>h1{
+            color: black;
+        }
+
+        /*Class Selector*/
+         .class1{
+         color: blueviolet;
+         }  
+        .class2{
+            color: brown;
+        }
+
+        /*Multiple class on same element*/
+        .m1.m2{
+            color:goldenrod;
+        }
+
+        /*classes Descendent*/
+        .m4 span .m3{
+                color: chartreuse;
+        }
+
+        /* Class with children combinator*/
+        .m5>p{
+            color: crimson;
+        }
+         s1{
+             color: black;
+         }
+
+        /*id selector*/
+        #the-one{
+            color: darkblue;
+        }
+
+        /*Attribute selector*/
+        input[value='select me']
+        {
+            background-color: blueviolet;
+        }
+
+        /*attribute +class selectors*/
+        #unique>.p1.p2{
+            color: coral;
+        }
+
+
+    </style>
+</head>
+<body>
+    <!-- add css style -->
+    <h1 style="color: blue; ">Heading 1</h1>
+    <h1>Heading 2</h1>
+    <h1>Heading 3</h1>
+    <h1>Heading 4</h1>
+    <h1>Heading 5</h1>
+
+<p> he introduction typically describes the scope of the document and gives a brief explanation or summary of the document. It may</p>
+  
+<!-- make selected list items blue-->
+ <ol>
+     <li>item 1</li>
+     <li>item 2</li>
+ </ol>
+
+ <div>
+     <ol>
+         <li>item 3</li>
+         <li>item 4</li>
+     </ol>
+ </div>
+
+<div>
+    <h1>
+        <span> I am direct son</span>
+    </h1>
+</div>
+
+<div>
+    <span>
+        <h1>
+            I am indirect son
+        </h1>
+    </span>
+</div>
+
+<p>random</p>
+<p>random</p>
+<p>random</p>
+<p class="class1"> hey there  </p>
+<p class="class2"> make be colorful</p>
+
+<div class="m1 m2"> hello multiple classes</div>
+<div class="m1"> i am m1 class</div>
+<div class="m2"> i am m2 class</div>
+
+<br>
+<br>
+
+<div class="m4">
+    <div>
+        <span>
+            <div  class=" m3"> i am here find me for class descendent</div>
+        </span>
+    </div>
+</div>
+
+<div>
+    <span>
+        <div class="m4"> not me brother</div>
+    </span>
+</div>
+
+<div class="m5">
+ <p>
+     i am direct son of class with children selector
+ </p>
+</div>
+
+<div class="m5">
+ <span>
+     <p>
+         i am indirect
+     </p>
+ </span>
+</div>
+
+<p class="s1"> random</p>
+<p class="s1"> random</p>
+<p class="s1"> random</p>
+<p class="s1"> random</p>
+<p class="s1" id="the-one">  selected random</p> 
+<!--we give id unique to every attribute unlike class-->
+<!-- id is  not used for styling purpose it is used for identification purpose-->
+<p class="s1"> random</p>
+
+
+<form >
+    <input type="button" value="click me">
+    <input type="button" value="select me">
+</form>
+
+<div class="some-class">
+    <div id="unique">
+        <p>random</p>
+        <div>
+            <p class="p1 p2"> random</p>
+        </div>
+ <p class="p1 p2">  select me</p>
+ <div class=" p1 p2"> select me </div>
+    </div>
+
+</div>
+<div class="some-class">
+    <p class="p1"> random</p>
+    <p class="p2"> random</p>
+   <p class="p1 p2"> random</p>
+</div>
+
+</body>
+</html>
