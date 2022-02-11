@@ -16,8 +16,11 @@
 
 let inputArr = process.argv.slice(2); // to take multiple iput we use slice it remoeves input before 2 index
 
-let types = {    //it is a object
-    media: ["mp4", "mkv", "mp3"],
+let types = {   //it is a object
+    devFiles:["htm" ,"html", "css" , "js"],
+    Images:["avif","gif","jpg","jpeg", "jfif","pjpeg","pjp","png","JPG"],
+    Music: ["mp3"],
+    Videos:["mp4", "MOV" ,"WMV" ,"AVI" ,"AVCHD","FLV","MKW","MPEG-2"],
     archives: ["zip", "7z", "rar", "gz", "ar", "iso", "xz"],
     documents: [
         "docx",
@@ -163,6 +166,6 @@ function getCataegory(name) {
       fs.copyFileSync(srcFilePath, destFilePath)   //copied the files
       fs.unlinkSync(srcFilePath)  //deleted the files
 
-      console.log(fileName +"is copeid to" +fileCategory)
+      console.log(fileName +" is copeid to " +fileCategory)
  }
 
