@@ -42,14 +42,16 @@ let types = {   //it is a object
 
 const { dir } = require("console");
 const fs = require("fs")  //importin fs module
-const path = require('path')  //importing path module
+const path = require('path');  //importing path module
+const { dirname } = require("path/posix");
 //console.log(input)  
 
 let command = inputArr[0];  ///tree , help ,organize
 
 switch (command) {
     case 'tree':
-        console.log('tree implemented')
+        // console.log('tree implemented')
+        treeFn(inputArr[1])
         break;
 
     case 'help':
@@ -124,7 +126,7 @@ function organizeHelper(src, dest)  //take source and destination
         // console.log(childAddress +" "+ isFile) 
 
         if (isFile == true) {
-            let fileCategory = getCataegory(childNames[i])
+            let fileCategory = getCataegory(childNames[i])   //we took out all the cataegories of the files
             // console.log(childNames[i] +" belongs to " +fileCategory)
 
             sendFiles(childAddress, dest ,fileCategory)
@@ -154,7 +156,7 @@ function getCataegory(name) {
 }
  function sendFiles(srcFilePath , dest , fileCategory)
  {
-     let catPath= path.join(dest , fileCategory)  
+     let catPath= path.join(dest , fileCategory)   //making file cataegory path
      if(fs.existsSync(catPath)==false)   //checking for cataegory folder path exist or not
         {
             fs.mkdirSync(catPath)
@@ -168,4 +170,50 @@ function getCataegory(name) {
 
       console.log(fileName +" is copeid to " +fileCategory)
  }
+
+//tree implementation
+
+function treeFn(dirPath)
+{
+    if(dirPath==undefined)
+    {
+        console.log('Please enter a valid directory path');
+        return;
+    }
+    else{
+        let doesExist= fs.existsSync(dirPath);
+        if(doesExist==true)
+        {
+            treeHelper(dirPath," ");
+        }
+     }
+  }
+
+function treeHelper(targetPath , indent)
+{
+        let isFile= fs.lstatSync(targetPath).isFile();
+
+        if(isFile==true)
+        {
+        let fileName= path.basename(targetPath);
+        console.log(indent+" ├── "+fileName)
+        }
+        else
+        {
+            let dirname= path.basename(targetPath)
+            console.log(indent+"└──"+dirname)
+
+            let children= fs.readdirSync(targetPath)
+            // console.log(children)
+            //here we took out all the children of the folder
+
+            for(let i=0;i<children.length;i++)
+            {
+                let childPath= path.join(targetPath , children[i])
+                // console.log(childPath);
+                 treeHelper(childPath , indent+ "\t")
+
+            }
+        }
+}
 
