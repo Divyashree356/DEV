@@ -17,10 +17,10 @@
 let inputArr = process.argv.slice(2); // to take multiple iput we use slice it remoeves input before 2 index
 
 let types = {   //it is a object
-    devFiles:["htm" ,"html", "css" , "js"],
-    Images:["avif","gif","jpg","jpeg", "jfif","pjpeg","pjp","png","JPG"],
+    devFiles: ["htm", "html", "css", "js"],
+    Images: ["avif", "gif", "jpg", "jpeg", "jfif", "pjpeg", "pjp", "png", "JPG"],
     Music: ["mp3"],
-    Videos:["mp4", "MOV" ,"WMV" ,"AVI" ,"AVCHD","FLV","MKW","MPEG-2"],
+    Videos: ["mp4", "MOV", "WMV", "AVI", "AVCHD", "FLV", "MKW", "MPEG-2"],
     archives: ["zip", "7z", "rar", "gz", "ar", "iso", "xz"],
     documents: [
         "docx",
@@ -129,7 +129,7 @@ function organizeHelper(src, dest)  //take source and destination
             let fileCategory = getCataegory(childNames[i])   //we took out all the cataegories of the files
             // console.log(childNames[i] +" belongs to " +fileCategory)
 
-            sendFiles(childAddress, dest ,fileCategory)
+            sendFiles(childAddress, dest, fileCategory)
         }
     }
 }
@@ -154,66 +154,63 @@ function getCataegory(name) {
     }
     return 'others'
 }
- function sendFiles(srcFilePath , dest , fileCategory)
- {
-     let catPath= path.join(dest , fileCategory)   //making file cataegory path
-     if(fs.existsSync(catPath)==false)   //checking for cataegory folder path exist or not
-        {
-            fs.mkdirSync(catPath)
-        }
+function sendFiles(srcFilePath, dest, fileCategory) {
+    let catPath = path.join(dest, fileCategory)   //making file cataegory path
+    if (fs.existsSync(catPath) == false)   //checking for cataegory folder path exist or not
+    {
+        fs.mkdirSync(catPath)
+    }
 
-      let fileName= path.basename(srcFilePath);   // we took out names of the files
-      let destFilePath=  path.join(catPath, fileName); //created path for files in cataegory folder
+    let fileName = path.basename(srcFilePath);   // we took out names of the files
+    let destFilePath = path.join(catPath, fileName); //created path for files in cataegory folder
 
-      fs.copyFileSync(srcFilePath, destFilePath)   //copied the files
-      fs.unlinkSync(srcFilePath)  //deleted the files
+    fs.copyFileSync(srcFilePath, destFilePath)   //copied the files
+    fs.unlinkSync(srcFilePath)  //deleted the files
 
-      console.log(fileName +" is copeid to " +fileCategory)
- }
+    console.log(fileName + " is copeid to " + fileCategory)
+}
 
 //tree implementation
 
-function treeFn(dirPath)
-{
-    if(dirPath==undefined)
-    {
+function treeFn(dirPath) {
+    if (dirPath == undefined) {
         console.log('Please enter a valid directory path');
         return;
     }
-    else{
-        let doesExist= fs.existsSync(dirPath);
-        if(doesExist==true)
-        {
-            treeHelper(dirPath," ");
+    else {
+        let doesExist = fs.existsSync(dirPath);
+        if (doesExist == true) {
+            treeHelper(dirPath, " ");
         }
-     }
-  }
+    }
+}
 
-function treeHelper(targetPath , indent)
-{
-        let isFile= fs.lstatSync(targetPath).isFile();
+function treeHelper(targetPath, indent) {
+    let isFile = fs.lstatSync(targetPath).isFile();
+    //here we check wether the target file is a file or a folder
 
-        if(isFile==true)
-        {
-        let fileName= path.basename(targetPath);
-        console.log(indent+" ├── "+fileName)
+    if (isFile == true) {
+        let fileName = path.basename(targetPath);
+        console.log(indent + " ├── " + fileName)
+        //this will display the files
+    }
+    else {
+        let dirname = path.basename(targetPath)
+        console.log(indent + "└──" + dirname)
+        //this will display the folders
+
+
+        let children = fs.readdirSync(targetPath)
+        // console.log(children)
+        //here we took out all the children of the folder
+
+        for (let i = 0; i < children.length; i++) {
+            let childPath = path.join(targetPath, children[i])
+            // console.log(childPath);
+            treeHelper(childPath, indent + "\t")
+            //using recursion yo repeat the process for all files and folders
+
         }
-        else
-        {
-            let dirname= path.basename(targetPath)
-            console.log(indent+"└──"+dirname)
-
-            let children= fs.readdirSync(targetPath)
-            // console.log(children)
-            //here we took out all the children of the folder
-
-            for(let i=0;i<children.length;i++)
-            {
-                let childPath= path.join(targetPath , children[i])
-                // console.log(childPath);
-                 treeHelper(childPath , indent+ "\t")
-
-            }
-        }
+    }
 }
 
