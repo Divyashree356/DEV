@@ -39,3 +39,29 @@ let printArr= nameArr.map(function(n)  //giving name to a function is not mandat
 })
 
 console.log(printArr)
+
+
+let nameArr2 = [ 'Divyshree Agrawal ' , 'Ashutosh Yadav', 'Sheena Chaturvedi'];
+
+let nameSplit= nameArr2.map(function(n)
+{
+    let partsOfName= n.split(" ");
+    let firstname= partsOfName[0];
+    let lastNAme= partsOfName[1];
+    // return firstname;
+    return lastNAme;
+})
+
+console.log(nameSplit);
+
+const transaction=[1000 , 582 , 236, 7452 , 3000 , -256 , -74 ]
+const inrToUsd= 74;
+
+let rupees= transaction.map(function(n)
+{
+    //  return n*inrToUsd;
+    return (n/inrToUsd).toFixed(0);
+})
+ 
+console.log(transaction)
+console.log(rupees)
