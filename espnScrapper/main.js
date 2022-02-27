@@ -2,6 +2,8 @@ const url = 'https://www.espncricinfo.com/series/ipl-2020-21-1210595'
 
 const request = require('request')
 const cheerio = require('cheerio')
+const getMatchobj= require('./allMatch')
+const allMatch = require('./allMatch')
 
 request(url, cb)
 
@@ -23,33 +25,7 @@ function extractLink(html) {
 
     // console.log(fullLink);
 
-    getAllMatchesLink(fullLink);
+    allMatch.getAllMatches(fullLink);
 }
 
-function getAllMatchesLink(uri)
-{
-    request(uri , function(err ,response , html)
-    {
-        if(err)
-         console.err(err)
 
-        else 
-        // console.log(html)
-        extractAllLink(html)
-    })
-}
-
-function extractAllLink(html)
-{
-    let $ =cheerio.load(html);
-
-    let scoreCardArray = $('a[data-hover="Scorecard"]')
-
-    for(let i=0;i<scoreCardArray.length;i++)
-    {
-        let link= $(scoreCardArray[i]).attr('href');
-        let fullLink = 'https://www.espncricinfo.com/'+link;
-        console.log(fullLink);
-    }
-
-}
