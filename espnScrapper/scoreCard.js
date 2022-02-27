@@ -3,6 +3,7 @@ let url='https://www.espncricinfo.com//series/ipl-2020-21-1210595/mumbai-indians
 const request = require('request')
 const cheerio = require('cheerio')
 const { html } = require('cheerio/lib/api/manipulation')
+const { hasClass } = require('cheerio/lib/api/attributes')
 
 request(url , cb)
 
@@ -33,12 +34,47 @@ function indexElements(html)
     console.log(result.text())
     console.log(venue);
     console.log(date);
-    console.log('``````````````````````````````````````````````````````````````````')
+    // console.log('``````````````````````````````````````````````````````````````````')
     let innings= $(".card.content-block.match-scorecard-table .Collapsible")
    let htmlString = '';
     for(let i=0;i<innings.length;i++)
     {
         htmlString += $(innings[i]).html();
+
+        let teamName= $(innings[i]).find('h5').text();
+        teamName=teamName.split('INNINGS')[0].trim();
+
+        let opponentIndex= i==0?1:0 ;
+        let opponentName= $(innings[opponentIndex]).find('h5').text();
+        opponentName= opponentName.split('INNINGS')[0].trim();
+
+    //    console.log(teamName , opponentName)
+    
+         let currInning= $(innings[i])
+         let allRows= currInning.find('.table.batsman tbody tr');
+
+         for(let j=0;j<allRows.length;j++)
+         {
+             let allColumns= $(allRows[j]) .find('td')
+             let batsMen =  $(allColumns[0]).hasClass('batsman-cell');
+             if(batsMen== true)
+             {
+                 let batsmanName=  $(allColumns[0]).text().trim();
+                 let runs=  $(allColumns[2]).text().trim();
+                 let balls=  $(allColumns[3]).text().trim();
+                 let fours=  $(allColumns[5]).text().trim();
+                 let sixes=  $(allColumns[6]).text().trim();
+                 let strikeRate= $(allColumns[7]).text().trim();
+                
+                 //template literals
+                 console.log(`${batsmanName} | ${runs} | ${balls} | ${fours} | ${sixes} | ${strikeRate}`)
+                 
+
+             }
+
+         }
+
+         console.log("```````````````````````````````````````````````````````````````````````````")
     }
- console.log(htmlString)
+//  console.log(htmlString)
 }
