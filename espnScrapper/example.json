@@ -57,5 +57,47 @@
         "address": {
             "planet": "assguard"
         }
+    },
+    {
+        "name": "thor",
+        "last name": "odinson",
+        "isAvenger": true,
+        "friends": [
+            "steve",
+            "banner",
+            "spiderman"
+        ],
+        "age": 25,
+        "address": {
+            "planet": "assguard"
+        }
+    },
+    {
+        "name": "thor",
+        "last name": "odinson",
+        "isAvenger": true,
+        "friends": [
+            "steve",
+            "banner",
+            "spiderman"
+        ],
+        "age": 25,
+        "address": {
+            "planet": "assguard"
+        }
+     },
+    {
+        "name": "thor",
+        "last name": "odinson",
+        "isAvenger": true,
+        "friends": [
+            "steve",
+            "banner",
+            "spiderman"
+        ],
+        "age": 25,
+        "address": {
+            "planet": "assguard"
+        }
     }
 ]
