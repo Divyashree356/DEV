@@ -1,5 +1,5 @@
-const fs= require('fs');
-const xlsx= require('xlsx');
+const fs = require('fs');
+const xlsx = require('xlsx');
 //without fs module
 
 let jsonFile = require('./example.json')
@@ -19,15 +19,15 @@ let jsonFile = require('./example.json')
 //pushing a  new object to our jsonfile
 jsonFile.push(
     {
-        "name" : "thor" ,
-        "last name" : "odinson" ,
-        "isAvenger" : true ,
-        "friends" : [ 'steve', 'banner', 'spiderman' ],  
-        "age" :25 ,
+        "name": "thor",
+        "last name": "odinson",
+        "isAvenger": true,
+        "friends": ['steve', 'banner', 'spiderman'],
+        "age": 25,
         "address":
-                    {
-                      "planet" :'assguard'
-                    }
+        {
+            "planet": 'assguard'
+        }
     }
 )
 
@@ -40,17 +40,17 @@ let strinData = JSON.stringify(jsonFile);
 // fs.writeFileSync('example.json' , strinData);
 // console.log('json file updated')
 
-        let  newWB = xlsx.utils.book_new();
-        //creating a new workbook
-        let newWS = xlsx.utils.json_to_sheet(jsonFile);
-        //json is converted to sheet format
-        xlsx.utils.book_append_sheet(newWB  , newWS , 'Avengers');
-        //add data to file and append together
-        xlsx.writeFile(newWB , 'Aven.xlsx');
+let newWB = xlsx.utils.book_new();
+//creating a new workbook
+let newWS = xlsx.utils.json_to_sheet(jsonFile);
+//json is converted to sheet format
+xlsx.utils.book_append_sheet(newWB, newWS, 'Avengers');
+//add data to file and append together
+xlsx.writeFile(newWB, 'Aven.xlsx');
 
 
-        let  wb= xlsx.readFile('Aven.xlsx');
-        let excelData = wb.Sheets['Avengers'];
-        let ans = xlsx.utils.sheet_to_json(excelData);
-        console.log(ans);
+let wb = xlsx.readFile('Aven.xlsx');
+let excelData = wb.Sheets['Avengers'];
+let ans = xlsx.utils.sheet_to_json(excelData);
+console.log(ans);
 

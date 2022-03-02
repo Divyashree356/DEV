@@ -27,6 +27,6 @@ function extractAllLink(html) {
 
 }
 
-module.exports={
+module.exports = {
     getAllMatches: getAllMatchesLink
 }

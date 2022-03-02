@@ -4,9 +4,11 @@ const request = require('request')
 const cheerio = require('cheerio')
 const { html } = require('cheerio/lib/api/manipulation')
 const { hasClass } = require('cheerio/lib/api/attributes')
+const path = require('path')
+const fs = require('fs')
+const xlsx= require('xlsx')
 
-function processScoreCard(url)
-{
+function processScoreCard(url) {
 
     request(url, cb)
 }
@@ -69,6 +71,8 @@ function indexElements(html) {
                 //template literals
                 console.log(`${batsmanName} | ${runs} | ${balls} | ${fours} | ${sixes} | ${strikeRate}`)
 
+                processPlayerDetails(teamName, opponentName, batsmanName, runs, balls, fours, sixes, strikeRate, venue, date, result);
+
 
             }
 
@@ -78,11 +82,75 @@ function indexElements(html) {
     }
     //  console.log(htmlString)
 }
+function processPlayerDetails
+    (   teamName,
+        opponentName,
+        batsmanName,
+        runs,
+        balls,
+        fours,
+        sixes,
+        strikeRate,
+        venue,
+        date,
+        result
+        ) {
+    let teamPath = path.join(__dirname, "IPL", teamName);
+    createDir(teamPath)
 
-module.exports={
+    let playerPath= path.join(teamPath  , batsmanName +'.xlsx');
+
+    let content =xlsxReader(playerPath , batsmanName);
+    
+
+    let playerObj=
+    {   teamName,
+        opponentName,
+        batsmanName,
+        runs,
+        balls,
+        fours,
+        sixes,
+        strikeRate,
+        venue,
+        date,
+        result,
+     };
+
+    content.push(playerObj)
+
+    xlsxWriter(content ,  batsmanName,  playerPath )
+
+}
+function createDir(filePath) {
+    if (fs.existsSync(filePath) == false) {
+        fs.mkdirSync(filePath);
+    }
+}
+
+ function xlsxWriter(jsonData ,sheetName , fileName)
+ {
+    let newWB = xlsx.utils.book_new();
+    let newWS = xlsx.utils.json_to_sheet(jsonData);
+    xlsx.utils.book_append_sheet(newWB, newWS, sheetName);
+    xlsx.writeFile(newWB, fileName);
+ }
+
+ function xlsxReader(fileName ,sheetName)
+ {
+
+    if(fs.existsSync(fileName)==false)
+     return [];
+
+    let wb = xlsx.readFile(fileName);
+    let excelData = wb.Sheets[sheetName];
+    let ans = xlsx.utils.sheet_to_json(excelData);
+    return ans;
+ }
+module.exports = {
 
     ps: processScoreCard
-}
+};
 
 
 
