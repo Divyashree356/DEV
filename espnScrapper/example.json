@@ -1,0 +1,61 @@
+[
+    {
+        "name": "Steve",
+        "last name": "Rogers",
+        "isAvenger": true,
+        "friends": [
+            "steve",
+            "banner",
+            "spiderman"
+        ],
+        "age": 120,
+        "address": {
+            "city": "newyork",
+            "state": "manhattan"
+        }
+    },
+    {
+        "name": "Tony",
+        "last name": "Stark",
+        "isAvenger": true,
+        "friends": [
+            "steve",
+            "banner",
+            "spiderman"
+        ],
+        "age": 55,
+        "address": {
+            "city": "newyork",
+            "state": "manhattan"
+        }
+    },
+    {
+        "name": "Peter",
+        "last name": "Parker",
+        "isAvenger": true,
+        "friends": [
+            "steve",
+            "banner",
+            "spiderman"
+        ],
+        "age": 18,
+        "address": {
+            "city": "newyork",
+            "state": "manhattan"
+        }
+    },
+    {
+        "name": "thor",
+        "last name": "odinson",
+        "isAvenger": true,
+        "friends": [
+            "steve",
+            "banner",
+            "spiderman"
+        ],
+        "age": 25,
+        "address": {
+            "planet": "assguard"
+        }
+    }
+]
