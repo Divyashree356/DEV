@@ -12,10 +12,11 @@ console.log('before')
 
 // })
 
+//Pending stage
 let promise = fs.promises.readFile('f1.txt')
 // console.log(promise);
 
-
+//when promise get fullfilled
 promise.then(function (data) {
     console.log('file data->' + data)
 })
@@ -30,6 +31,7 @@ promise2.then(function (data) {
     console.log('file data->' + data)
 })
 
+//it run when our promise gets rejected
 promise2.catch(function (err) {
     console.error(err);
 })
