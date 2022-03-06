@@ -46,7 +46,7 @@ console.log('after')
 console.log('before')
 
 fs.readFile('trial1.txt' , cb);   //readFile is a asynch function
-fs,fs.readFile('trial2.txt' , cb2);
+fs.readFile('trial2.txt' , cb2);
 
 //whenever we deal with error in our callback function first, we call it error first function
 
