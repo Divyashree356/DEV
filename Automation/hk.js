@@ -35,7 +35,33 @@ browerLaunchingPromise.then(function(browserInstance)
 }).then(function()
 {
     let loginpromise =page.click("button[data-analytics='LoginPassword']" , {delay : 50})
+    return loginpromise
 })
+.then(function()
+{
+   let algoSectionClickedPromise= waitAndClick('.topic-card a[data-attr1="algorithms"]' , page)
+//    return algoSectionClickedPromise;
+});
+
+
+function waitAndClick(selector , currentPage)
+{
+    return new Promise(function(resolve , reject)
+    {
+        let waitForPromise = currentPage.waitForSelector(selector);
+        waitForPromise.then(function()
+        {
+            let clickCurrPagePromise = currentPage.click(selector , {delay:100})
+            return clickCurrPagePromise;
+        }).then(function()
+        {
+            resolve();
+        }).catch(function()
+        {
+            reject();
+        })
+    })
+}
 
 
 console.log('after')
