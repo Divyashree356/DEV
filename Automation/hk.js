@@ -1,4 +1,5 @@
 let puppeteer = require('puppeteer')
+let codeFile = require('./code')
 let email='neheba3007@zneep.com';
 let password= 'Divyashree'
 
@@ -40,9 +41,31 @@ browerLaunchingPromise.then(function(browserInstance)
 .then(function()
 {
    let algoSectionClickedPromise= waitAndClick('.topic-card a[data-attr1="algorithms"]' , page)
-//    return algoSectionClickedPromise;
-});
+   return algoSectionClickedPromise;
+}).then(function()
+{
+    let warmUpPageClicked= waitAndClick('input[value="warmup"]'  , page)
+    return warmUpPageClicked;
+}).then(function()
+{
+    let questionsArray = page.$$('.ui-btn.ui-btn-normal.primary-cta.ui-btn-line-primary.ui-btn-styled' , {delay:100})
+    return questionsArray;
+}).then(function(questionsArray)
+{
+    console.log("questions " + questionArray.length);
+    let questionSolvedPromise = questionSolver(page , questionsArray[0] , codeFile.answers[0])
+})
 
+function questionSolver(page , question , solution)
+{
+   new Promise(function(resolve , reject)
+    {
+        let questionClicked= question.click()
+        // questionClicked.then(function(){
+        // console.log('question clicked')
+        // })
+    })
+}
 
 function waitAndClick(selector , currentPage)
 {
