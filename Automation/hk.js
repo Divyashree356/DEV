@@ -111,7 +111,38 @@ function questionSolver(page , question , solution)
             return xIsPressed;
         }).then(function()
         {
-            
+            let controlReleased = page.keyboard.up('Control');
+            return controlReleased;
+        }).then(function()
+        {
+            let editorReachedPromise = waitAndClick('.monaco-editor.no-user-select .vs' , page);
+            return editorReachedPromise;
+        }).then(function()
+        {
+          let controlAgainPressedPromise = page.keyboard.down('Control');
+          return controlAgainPressedPromise;
+        }).then(function()
+        {
+            let aIsAgainPressed = page.keyboard.press('A', {delay: 10})
+            return aIsAgainPressed;
+        }).then(function()
+        {
+            let vIsPressed = page.keyboard.press('V' , {delay : 10})
+            return vIsPressed;
+        }).then(function()
+        {
+            let controlReleasedAgain = page.keyboard.up('Control');
+            return controlReleasedAgain;
+        }).then(function()
+        {
+          let submitClickedPromise=  page.click('.hr-monaco-submit' , {delay : 20})
+            return submitClickedPromise;
+        }).then(function()
+        {
+            resolve();
+        }).catch(function(err)
+        {
+            console.log(err);
         })
 
     })
