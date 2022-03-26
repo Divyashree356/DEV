@@ -1,4 +1,5 @@
-let puppeteer = require('puppeteer')
+let puppeteer = require('puppeteer');
+const { answers } = require('./code');
 let codeFile = require('./code')
 let email='neheba3007@zneep.com';
 let password= 'Divyashree'
@@ -9,7 +10,7 @@ console.log('before')
 let browerLaunchingPromise = puppeteer.launch({
     headless:false,  //changing the default setting to view result 
     defaultViewport:null,
-    rgs: ['--start-maximized']
+    args: ['--start-maximized']
 });
 
 browerLaunchingPromise.then(function(browserInstance)
@@ -48,24 +49,16 @@ browerLaunchingPromise.then(function(browserInstance)
     return warmUpPageClicked;
 }).then(function()
 {
-    let questionsArray = page.$$('.ui-btn.ui-btn-normal.primary-cta.ui-btn-line-primary.ui-btn-styled' , {delay:100})
+    let questionsArray = page.$$('.ui-btn.ui-btn-normal.primary-cta.ui-btn-line-primary.ui-btn-styled' , {delay:1000})
     return questionsArray;
 }).then(function(questionsArray)
 {
-    console.log("questions " + questionArray.length);
+    console.log("questions " + questionsArray.length);
     let questionSolvedPromise = questionSolver(page , questionsArray[0] , codeFile.answers[0])
+    return questionSolvedPromise;
 })
 
-function questionSolver(page , question , solution)
-{
-   new Promise(function(resolve , reject)
-    {
-        let questionClicked= question.click()
-        // questionClicked.then(function(){
-        // console.log('question clicked')
-        // })
-    })
-}
+
 
 function waitAndClick(selector , currentPage)
 {
@@ -83,6 +76,44 @@ function waitAndClick(selector , currentPage)
         {
             reject();
         })
+    })
+}
+
+function questionSolver(page , question , solution)
+{
+    return new Promise(function(resolve , reject)
+    {
+        let questionClicked= question.click();
+        questionClicked.then(function()
+        {
+            let editorReachedPromise = waitAndClick('.monaco-editor.no-user-select .vs' , page);
+            return editorReachedPromise;
+        }).then(function(){
+          return waitAndClick(".checkbox-input" , page)
+        }).then(function()
+        {
+         return page.waitForSelector(" .input.text-area.custominput.auto-width")
+        }).then(function(){
+            return page.type(".input.text-area.custominput.auto-width" , solution , {delay: 5});
+        }).then(function()
+        {
+        //   console.log('Answer typed')
+          let controlPressedPromise = page.keyboard.down('Control');
+          return controlPressedPromise;
+        }).then(function()
+        {
+            let aIsPressed = page.keyboard.press('A' ,{delay:20});
+            return aIsPressed;
+        })
+        .then(function()
+        {
+            let xIsPressed = page.keyboard.press('X' , {delay:20});
+            return xIsPressed;
+        }).then(function()
+        {
+            
+        })
+
     })
 }
 
