@@ -1,0 +1,41 @@
+<!-- IMPORATANT PROPERTIES OF DOM -->
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>
+                Document
+        </title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+       
+       <button class="but"> 
+           say hello
+       </button> 
+       <!-- click on button to append hello -->
+
+       <!-- to acess anything in the html docs we have a query selector in our script , we use it along with the document (it is a
+        inbuild object given by dom which help in accesing the functions of script) -->
+
+        <!-- query selector is used to identify selectro -->
+
+        <script>
+                let btn= document.querySelector('.but');
+    
+        // event listener takes to arguments - the activity on the attribute like click , mouseover etc and a function that what we
+        //need to do after clicking that
+
+                btn.addEventListener('click' ,function(e)
+                {
+                    let divEle = document.createElement('div');      //creating div using create element
+                    divEle.innerText="hello";                        // adding text to our div element using innertext proprty
+
+                    let body=  document.querySelector('body');
+                    body.append(divEle); //append child is a method to add new children inside selected element
+                })
+        </script>
+    </body>
+</html>
