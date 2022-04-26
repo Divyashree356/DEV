@@ -1,0 +1,67 @@
+/* when we use  * all of the html tags are selected by default */
+*{
+    box-sizing: border-box;  
+    /* it help us not to increase the size of box when border is added to it */
+}
+
+body{
+    margin: 0;
+    padding: 0;
+}
+
+.toolbox-cont{
+    height: 5rem;
+    background-color: rgb(59, 53, 53);
+    display: flex;
+    align-items: center;
+}
+
+.toolbox-cont>*{
+    margin-left: 4rem;
+    border-radius: 3px;
+}
+
+.toolbox-priority{
+    height: 3.5rem;
+    width: 18rem;
+    background-color: #1289A7;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.toolbox-button{
+    height: 3.5rem ;
+    width: 7rem;
+    background-color: #D980FA;
+    display: flex;
+}
+
+.color{
+    height: 1.5rem;
+    width: 3rem;
+    
+}
+
+.toolbox-button>*{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 50%;
+    font-size: 2rem;
+}
+.pink{
+  background-color: pink;
+}
+
+.green{
+  background-color: lightgreen;
+}
+
+.blue{
+ background-color:  lightblue;
+}
+
+.black{
+ background-color: black;
+}
