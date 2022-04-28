@@ -80,13 +80,14 @@ body {
 .model-cont {
     height: 50vh;
     width: 45vw;
-    background-color: chocolate;
+    background-color: lavender ;
 
     /* when we absolute a positon of something it does not have any relation we screen */
     position: absolute;
     top: calc((100vh - 50vh) / 2);
     left: calc((100vw - 45vw) / 2);
-    display: flex;
+    display: none;
+    border-radius: 2px;
 
 }
 
@@ -99,6 +100,7 @@ body {
     resize: none;
     padding: 2rem;
     font-size: 2rem;
+    
 }
 
 .priority-selector{
@@ -115,3 +117,36 @@ body {
     width: 5rem;
 }
 
+.active{
+    border : 5px solid orange;
+}
+
+.main-cont{
+    display: flex;
+    gap: 4rem;
+    justify-content: center;
+
+}
+
+.ticket-cont{
+    height: 12rem;
+    width: 15rem;
+    background-color: lightgrey;
+}
+
+.ticket-color{
+    height: 1rem;
+    background-color: black;
+}
+
+.ticket-id{
+    height: 2rem;
+    background-color: palevioletred;
+
+}
+
+.task-area{
+    height: calc(100% - 1rem -2rem);
+    font-size: 1.5rem;
+    padding :5px;
+}
