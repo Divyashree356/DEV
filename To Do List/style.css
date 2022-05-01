@@ -125,6 +125,8 @@ body {
     display: flex;
     gap: 4rem;
     justify-content: center;
+    padding: 3rem;
+    flex-wrap: wrap;
 
 }
 
