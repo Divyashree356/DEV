@@ -2,6 +2,16 @@
 let addbtn = document.querySelector('.add-button');
 let mainCont= document.querySelector('.main-cont');
 let addFlag= false;
+let color= ['pink' , 'blue' , 'green' , 'black'];
+let allPrioirityColors= document.querySelectorAll('.priority-color');
+let textArea= document.querySelector('.textarea-cont')
+
+
+let priorityColor= color[color.length-1];  //by default- black
+
+
+ 
+
 
 let modelContainer= document.querySelector('.model-cont')
 addbtn.addEventListener('click' , function(e)
@@ -22,27 +32,43 @@ addbtn.addEventListener('click' , function(e)
      let key = e.key;
      if(key == 'Shift')
       {
-          createTicket(); //it will create ticket
+      createTicket(priorityColor , textArea.value);  //it will create ticket
       modelContainer.style.display='none'
       addFlag= false;
         }
  });
 
- function createTicket()
+
+ //changing priority color
+
+ allPrioirityColors.forEach(function(colorEle)
+ {
+     colorEle.addEventListener('click' , function(e)
+     {
+         allPrioirityColors.forEach(function(currColorEle)
+         {
+             currColorEle.classList.remove('active');
+         })
+         colorEle.classList.add('active');
+
+         priorityColor= colorEle.classList[0];
+     })
+ })
+
+ function createTicket(ticketColor , ticketValue)
  {
      let ticketCont= document.createElement('div');
      ticketCont.setAttribute('class' , 'ticket-cont');
-     ticketCont.innerHTML=`   <div class="ticket-color">
+     ticketCont.innerHTML=`   <div class="ticket-color ${ticketColor}">
 
      </div>
      <div class="ticket-id">
 
      </div>
-     <div class="task-area">
-
+     <div class="task-area ">
+     ${ticketValue}
      </div>`
 
      mainCont.appendChild(ticketCont);
  }
-
 
