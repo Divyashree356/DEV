@@ -2,10 +2,11 @@
 let addbtn = document.querySelector('.add-button');
 let mainCont= document.querySelector('.main-cont');
 let addFlag= false;
+let removeFlag=false;
 let color= ['pink' , 'blue' , 'green' , 'black'];
 let allPrioirityColors= document.querySelectorAll('.priority-color');
 let textArea= document.querySelector('.textarea-cont')
-
+let removeBtn= document.querySelector('.remove-button')
 
 let priorityColor= color[color.length-1];  //by default- black
 
@@ -63,12 +64,33 @@ addbtn.addEventListener('click' , function(e)
 
      </div>
      <div class="ticket-id">
-
+        ${'#sampleId'}
      </div>
      <div class="task-area ">
      ${ticketValue}
      </div>`
 
      mainCont.appendChild(ticketCont);
+     handleRemover(ticketCont);
  }
 
+ removeBtn.addEventListener('click' , function(e)
+ {
+   removeFlag= !removeFlag;
+   if(removeFlag==true)
+      removeBtn.style.color='blue';
+    else
+      removeBtn.style.color='black';
+
+ })
+
+ function handleRemover(ticket)
+ {
+     ticket.addEventListener('click' , function(e)
+     {
+         if(removeFlag==true)
+         {
+             ticket.remove();
+         }
+     })
+ }
