@@ -12,6 +12,8 @@ let priorityColor= color[color.length-1];  //by default- black
 
 let lockClass= 'fa-lock';
 let unlockClass= 'fa-lock-open';
+
+let locked=true;
  
 
 
@@ -34,7 +36,7 @@ addbtn.addEventListener('click' , function(e)
      let key = e.key;
      if(key == 'Shift')
       {
-      createTicket(priorityColor , textArea.value);  //it will create ticket
+      createTicket(priorityColor , textArea.value, shortid());  //it will create ticket
       modelContainer.style.display='none'
       addFlag= false;
         }
@@ -57,7 +59,7 @@ addbtn.addEventListener('click' , function(e)
      })
  })
 
- function createTicket(ticketColor , ticketValue)
+ function createTicket(ticketColor , ticketValue, ticketId)
  {
      let ticketCont= document.createElement('div');
      ticketCont.setAttribute('class' , 'ticket-cont');
@@ -65,7 +67,7 @@ addbtn.addEventListener('click' , function(e)
 
      </div>
      <div class="ticket-id">
-        
+        #${ticketId}
      </div>
      <div class="task-area ">
        ${ticketValue}
@@ -77,6 +79,8 @@ addbtn.addEventListener('click' , function(e)
      mainCont.appendChild(ticketCont);
      handleRemover(ticketCont);
      handlelock(ticketCont);
+     handleColorBar(ticketCont) 
+
  }
 
  removeBtn.addEventListener('click' , function(e)
@@ -117,11 +121,15 @@ addbtn.addEventListener('click' , function(e)
   {
         if(ticketLock.classList.contains(lockClass))
         {
+
             ticketLock.classList.remove(lockClass);
             ticketLock.classList.add(unlockClass);
             ticketTaskarea.setAttribute('contenteditable', 'true');
+            
+
         }
         else{
+
             ticketLock.classList.remove(unlockClass)
             ticketLock.classList.add(lockClass)
             ticketTaskarea.setAttribute('contenteditable', 'false');
@@ -130,4 +138,29 @@ addbtn.addEventListener('click' , function(e)
           
   })
 
+ }
+
+
+ //handle color over ticket
+ function handleColorBar(ticket)
+ {
+    let colorBarele = ticket.querySelector('.ticket-color');
+
+    colorBarele.addEventListener('click', function(e)
+    {
+        let currBarColor= colorBarele.classList[1];
+
+        let colorIdx=  color.findIndex(function(currColor)
+        {
+            return currBarColor === currColor;
+        })
+
+        colorIdx++;
+        let newColorIdx= colorIdx% color.length;
+        let newColor= color[newColorIdx];
+
+        colorBarele.classList.remove(currBarColor);
+        colorBarele.classList.add(newColor);
+
+    })
  }
