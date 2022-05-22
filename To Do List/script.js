@@ -9,36 +9,100 @@ let textArea= document.querySelector('.textarea-cont')
 let removeBtn= document.querySelector('.remove-button')
 
 let priorityColor= color[color.length-1];  //by default- black
-
+let toolBoxColor= document.querySelectorAll('.color');
 let lockClass= 'fa-lock';
 let unlockClass= 'fa-lock-open';
 
 let locked=true;
  
+let ticketArr= [];
+
+
+//get local storage
+if(localStorage.getItem('tickets'))
+{
+ ticketArr= JSON.parse(localStorage.getItem('tickets'));
+ ticketArr.forEach(function(ticket)
+ {
+     createTicket(ticket.ticketColor , ticket.ticketValue , ticket.ticketId);
+ })
+
+}
+
+//filtering tickets with respect to colors
+for(let i=0;i<toolBoxColor.length;i++)
+{
+    toolBoxColor[i].addEventListener('click' , function(e)
+    {
+        let currentSelColor= toolBoxColor[i].classList[0];
+        console.log(currentSelColor);
+
+        let filteredTicket = ticketArr.filter(function(ticketObj)
+        {
+            return currentSelColor === ticketObj.ticketColor;
+        })
+
+        //remove previous tickets
+        let allTickets= document.querySelectorAll('.ticket-cont');
+
+        for(let i=0;i<allTickets.length;i++)
+        {
+            allTickets[i].remove();
+        }
+
+        //displaying filtered tickets
+        filteredTicket.forEach(function(filterdObj)
+        {
+            // console.log('printing')
+              createTicket(filterdObj.ticketColor ,filterdObj.ticketValue , filterdObj.ticketId);
+        })
+    });
+
+    toolBoxColor[i].addEventListener('dblclick' , function(e)
+    {
+        let allTickets= document.querySelectorAll('.ticket-cont');
+
+        for(let i=0;i<allTickets.length;i++)
+        {
+            allTickets[i].remove();
+        }
+
+        ticketArr.forEach(function(ticketObj)
+        {
+            createTicket(ticketObj.ticketColor , ticketObj.ticketValue , ticketObj.ticketId)
+        })
+
+    })
+}
+
+
 
 
 let modelContainer= document.querySelector('.model-cont')
 addbtn.addEventListener('click' , function(e)
 {
     //display model 
-    //add fla ->true then we have to display model otherwise hide
+    //add flag ->true then we have to display model otherwise hide
   addFlag = !addFlag;
-  if(addFlag)
+  if(addFlag==true)
   {
       modelContainer.style.display="flex";
   }
   else
-   modelContainer.style.display='none';
+    { modelContainer.style.display='none';
+}
 })
+
  //generate ticket
  modelContainer.addEventListener('keydown' , function(e)
  {
      let key = e.key;
      if(key == 'Shift')
       {
-      createTicket(priorityColor , textArea.value, shortid());  //it will create ticket
-      modelContainer.style.display='none'
+      createTicket(priorityColor , textArea.value);  //it will create ticket
+      modelContainer.style.display='none';
       addFlag= false;
+      textArea.value="";
         }
  });
 
@@ -61,13 +125,15 @@ addbtn.addEventListener('click' , function(e)
 
  function createTicket(ticketColor , ticketValue, ticketId)
  {
+     let id= ticketId|| shortid();
+
      let ticketCont= document.createElement('div');
      ticketCont.setAttribute('class' , 'ticket-cont');
      ticketCont.innerHTML=` <div class="ticket-color ${ticketColor}">
 
      </div>
      <div class="ticket-id">
-        #${ticketId}
+        #${id}
      </div>
      <div class="task-area ">
        ${ticketValue}
@@ -81,6 +147,11 @@ addbtn.addEventListener('click' , function(e)
      handlelock(ticketCont);
      handleColorBar(ticketCont) 
 
+     if(!ticketId)
+       {
+        ticketArr.push({ticketColor , ticketValue , ticketId :id});
+        localStorage.setItem('tickets' , JSON.stringify(ticketArr))
+      }
  }
 
  removeBtn.addEventListener('click' , function(e)
