@@ -143,9 +143,9 @@ addbtn.addEventListener('click' , function(e)
      </div>`
 
      mainCont.appendChild(ticketCont);
-     handleRemover(ticketCont);
-     handlelock(ticketCont);
-     handleColorBar(ticketCont) 
+     handleRemover(ticketCont ,id);
+     handlelock(ticketCont,id);
+     handleColorBar(ticketCont ,id);
 
      if(!ticketId)
        {
@@ -166,21 +166,29 @@ addbtn.addEventListener('click' , function(e)
 
 
  //remove ticket function
- function handleRemover(ticket)
+ function handleRemover(ticket,id)
  {
      ticket.addEventListener('click' , function(e)
      {
-         if(removeFlag==true)
-         {
+         if(!removeFlag) return;
+
+         //updating local storage
+         let idx= getTicketIdx(id);
+         ticketArr.splice(idx,1);   //deleting ticket from array
+
+         let updtaedTicketArr= JSON.stringify(ticketArr);
+
+         localStorage.setItem('tickets' , updtaedTicketArr); 
+         
              ticket.remove();
-         }
+         
      })
  }
  
 
  //function for lock and unlock
 
- function handlelock(ticket)
+ function handlelock(ticket ,id)
  {
   let ticketlockEle = ticket.querySelector('.lock-cont');
   
@@ -190,6 +198,8 @@ addbtn.addEventListener('click' , function(e)
 
   ticketLock.addEventListener('click' , function(e)
   {
+      let idx= getTicketIdx(id);
+
         if(ticketLock.classList.contains(lockClass))
         {
 
@@ -206,20 +216,24 @@ addbtn.addEventListener('click' , function(e)
             ticketTaskarea.setAttribute('contenteditable', 'false');
 
         }
-          
+        
+        ticketArr[idx].ticketValue= ticketTaskarea.innerText;
+        localStorage.setItem('tickets' ,JSON.stringify(ticketArr));
+
   })
 
  }
 
 
  //handle color over ticket
- function handleColorBar(ticket)
+ function handleColorBar(ticket ,id)
  {
     let colorBarele = ticket.querySelector('.ticket-color');
 
     colorBarele.addEventListener('click', function(e)
     {
         let currBarColor= colorBarele.classList[1];
+        let idx= getTicketIdx(id);
 
         let colorIdx=  color.findIndex(function(currColor)
         {
@@ -232,6 +246,20 @@ addbtn.addEventListener('click' , function(e)
 
         colorBarele.classList.remove(currBarColor);
         colorBarele.classList.add(newColor);
+        
+        //modify in ticket color array and then in local storage
+        ticketArr[idx].ticketColor= newColor;
+        localStorage.setItem('tickets' ,JSON.stringify(ticketArr));
 
     })
+ }
+
+ //get index of the ticket which we want to remove
+ function getTicketIdx(id)
+ {
+     let ticketIdx= ticketArr.findIndex(function(obj)
+     {
+         return obj.ticketId==id;
+     })
+     return ticketIdx;
  }
