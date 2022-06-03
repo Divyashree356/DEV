@@ -35,13 +35,19 @@
 //JSX
 
 
-function Element(){
-    return <h1> hello </h1>
-}
+function Element({ name = "Agrawal", age, gender }) {
+      return (
+        <>
+          <h1>Hello {name}</h1>
+          <h2>{gender}</h2>
+          <h3>{age}</h3>
+        </>
+      );
+    }
 
-function Element2()
+function Element2({place})
 {
-    return <h1> good bye</h1>
+    return <h1> good bye {place}</h1>
 }
 
 function Parent()
@@ -55,7 +61,7 @@ function Parent()
             <Element/>
             <Element/>
          </div>
-    )
+    );
 }
 
 // in order to pass two functions we have to make fragements, fragment can be div or empty tags <> but if we want to call multiple functions or 
@@ -65,11 +71,13 @@ function Parent2()
 {
     return(
         <>
+        <Element name="Divyashree" age="21" gender="she" />
+        <Element2 place="delhi"/>
         <Element/>
         <Element2/>
 
         </>
-    )
+    );
 }
 
 //render method is called only once in the whole code , it is used to show in the html page 
