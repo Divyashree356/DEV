@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+<script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+</head>
+<body>
+      <div id="root">
+
+      </div>
+</body>
+
+<!-- //babel is used to convert jsx to java because browser is unable to understand jsx so babel convert jsx to javascript -->
+<script type="text/babel">
+    
+    // let attr= document.createElement('h1');
+    // attr.innerText='hello'
+    
+//     let root=document.getElementById('root');
+//     // ele.appendChild(attr);
+
+//     let ele= React.createElement('h1',{
+//         children: ['hello']
+//     });
+
+// // console.log(ele);
+
+//     ReactDOM.render(ele , root);
+
+//JSX
+
+
+function Element(){
+    return <h1> hello </h1>
+}
+
+function Element2()
+{
+    return <h1> good bye</h1>
+}
+
+function Parent()
+{
+    return (
+        <div>
+            <Element/>
+            <Element/>
+            <Element/>
+            <Element/>
+            <Element/>
+            <Element/>
+         </div>
+    )
+}
+
+// in order to pass two functions we have to make fragements, fragment can be div or empty tags <> but if we want to call multiple functions or 
+//one function multiple time w have to fragment it under any div or other parent element
+
+function Parent2()
+{
+    return(
+        <>
+        <Element/>
+        <Element2/>
+
+        </>
+    )
+}
+
+//render method is called only once in the whole code , it is used to show in the html page 
+//we have to send the function in the form of component like <nameoffunction/>
+ReactDOM.render(<Parent2/> , document.getElementById('root'));
+</script>
+
+</html>
