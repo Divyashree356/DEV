@@ -8,15 +8,42 @@ export class Todo extends Component {
         super();
         this.state=
         {
-            tasks:[{task:'get milk' , id:1} ,{task:'study' , id:2}],
-            currtask:""
+            tasks:[],
+            currtask:"",
         }
+    }
+
+    handelChange=(e)=>{
+        console.log(e.target.value)
+        this.setState(
+        {
+            currtask:e.target.value,
+        })
+    }
+
+    handleAddTask=()=>
+    {
+        this.setState({
+            tasks:[...this.state.tasks , {task:this.state.currtask , id:this.state.tasks.length+1}],
+            currtask:""
+        })
+    }
+
+    handleDelete=(id)=>
+    {
+     let narr= this.state.tasks.filter((filterObj)=>{
+            return filterObj.id != id
+     })
+
+     this.setState({
+         tasks: [...narr]
+     })
     }
   render() {
     return (
       <div>
-          <input type='text'/>
-           <button>Add text</button>
+          <input type='text'value={this.state.currtask} onChange={this.handelChange}/>
+           <button onClick={this.handleAddTask}>Add text</button>
 
 
 {/* after taskobj we make arow function there in general we use {} such
@@ -29,7 +56,7 @@ explicitly  */}
                    (
                        <li>
                            <p>{taskObj.task}</p>
-                           <button>Delete</button>
+                           <button onClick={()=>this.handleDelete(taskObj.id)}>Delete</button>
                        </li>
                    ))
                }
